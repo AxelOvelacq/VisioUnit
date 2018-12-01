@@ -6,7 +6,7 @@ ApplicationWindow {
     visible: true
     width: 1920
     height: 1080
-    title: qsTr("Visio Unit")
+    title: qsTr("Visio Unit - v1.0")
 
     header: StatusBar{}
 
