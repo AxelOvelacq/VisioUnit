@@ -12,28 +12,75 @@ ApplicationWindow {
 
     Drawer {
         id: drawer
-        width: header.height //window.width * idStatusBar.contentHeight/1920
+        width: window.width * 200/1920 // header.height //window.width * idStatusBar.contentHeight/1920
         height: window.height-header.height
         y: header.height
-
-        Column {
+        background: Rectangle{
+            color: "#3d414d"
             anchors.fill: parent
+        }
 
-            ItemDelegate {
-                text: qsTr("Page 1")
-                width: parent.width
-                onClicked: {
-                    stackView.push("Page1Form.ui.qml")
-                    drawer.close()
-                }
+        ItemDelegate {
+            id: idMenuButtonMenuBar
+            width: parent.width
+            height: width
+            anchors.top: parent.top
+            background: Rectangle{
+                anchors.fill: parent
+                color: idMenuButtonMenuBar.hovered ? "#5a4e42" : "transparent"
             }
-            ItemDelegate {
-                text: qsTr("Page 2")
-                width: parent.width
-                onClicked: {
-                    stackView.push("Page2Form.ui.qml")
-                    drawer.close()
-                }
+
+            Image {
+                asynchronous: true
+                id: idMenuButtonImageMenuBar
+                source: "/MenuBar/images/MenuBar/Menu.png"
+                fillMode: Image.PreserveAspectFit
+                anchors.fill: parent
+            }
+            Text {
+                color: "#ff9500"
+                text: qsTr("Menu")
+                font.capitalization: Font.SmallCaps
+                font.bold: true
+                font.pointSize: 28
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.top: idMenuButtonImageMenuBar.bottom
+                anchors.topMargin: -40
+            }
+            onClicked: {
+                stackView.push("Page1Form.ui.qml")
+                drawer.close()
+            }
+        }
+        ItemDelegate {
+            id: idRunStopButtonMenuBar
+            width: parent.width
+            height: width
+            anchors.bottom: parent.bottom
+            background: Rectangle{
+                anchors.fill: parent
+                color: idRunStopButtonMenuBar.hovered ? "#5a4e42" : "transparent"
+            }
+            Image {
+                asynchronous: true
+                id: idRunStopButtonImageMenuBar
+                source: "/MenuBar/images/MenuBar/Run.png"
+                fillMode: Image.PreserveAspectFit
+                anchors.fill: parent
+            }
+            Text {
+                color: "#ff9500"
+                text: qsTr("Run")
+                font.capitalization: Font.SmallCaps
+                font.bold: true
+                font.pointSize: 28
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.top: idRunStopButtonImageMenuBar.bottom
+                anchors.topMargin: -40
+            }
+            onClicked: {
+                stackView.push("Page2Form.ui.qml")
+                drawer.close()
             }
         }
     }

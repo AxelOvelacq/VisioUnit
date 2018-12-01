@@ -1,6 +1,18 @@
 import QtQuick 2.11
 import QtQuick.Controls 2.2
 
+/*
+    COLORS
+    ------
+    Background status bar :     474c59
+    Background menu button:     474c59
+                    hovered:    62574c
+    Background recipe list :    1f2126
+                    hovered:    403220
+    Background save button :    1f2126
+                    hovered :   403220
+*/
+
 ToolBar {
     id: idStatusBar
     property int p_minHeight: 50
@@ -13,14 +25,19 @@ ToolBar {
     ToolButton {
         id: idMenuButtonStatusBar
         height:parent.height
-        width:parent.height
+        width:height
         background: Rectangle{
             id: idBackgroundMenuButtonStatusBar
-            color:  "#474C59"
+            color:  idMenuButtonStatusBar.hovered ? "#62574c" : "#474c59"
         }
-        icon.source: stackView.depth > 1 ? "/StatusBar/images/StatusBar/StatusBar_PrevPage.png" : "/StatusBar/images/StatusBar/StatusBar_OpenMenuBar.png"
-        icon.height: idMenuButtonStatusBar.height
-        icon.width: idMenuButtonStatusBar.height
+        Image {
+            asynchronous: true
+            source: stackView.depth > 1 ? "/StatusBar/images/StatusBar/StatusBar_PrevPage.png" : "/StatusBar/images/StatusBar/StatusBar_OpenMenuBar.png"
+            fillMode: Image.PreserveAspectFit
+            height: parent.height
+            width: parent.width
+            anchors.centerIn: parent
+        }
         MouseArea{
             id:idMouseAreaMenuButtonStatusBar
             anchors.fill: parent
@@ -33,25 +50,6 @@ ToolBar {
                 }
             }
         }
-        states:[
-            State{
-                name:"hovered"; when:idMouseAreaMenuButtonStatusBar.containsMouse==true
-                PropertyChanges {
-                    target: idBackgroundMenuButtonStatusBar
-                    color:"#FF9500"
-                }
-            }
-        ]
-        transitions: [
-            Transition {
-                from: ""
-                to: "hovered"
-                reversible: true
-                ColorAnimation{
-                    duration: 10
-                }
-            }
-        ]
     }
 
     ComboBox{
@@ -59,10 +57,11 @@ ToolBar {
         anchors.left: idMenuButtonStatusBar.right
         anchors.leftMargin: 30
         anchors.verticalCenter: parent.verticalCenter
-        height: idStatusBar.height/3
+        height: idStatusBar.height/2
         width: idStatusBar.width/5
+
         //displayText: "Size: " + currentText
-        model: ["S", "je m'appelle hello", "L"]
+        model: ["Prg1 : Test", "Prg2 : Test test test", "Prg3 : Visio Unit VisioUnit"]
 
         delegate: ItemDelegate {
             width: idRecipeListStatusBar.width
@@ -75,13 +74,14 @@ ToolBar {
                 horizontalAlignment: Text.AlignHCenter
             }
             highlighted: idRecipeListStatusBar.highlightedIndex === index
+
         }
         indicator: Canvas {
             id: canvas
             x: idRecipeListStatusBar.width - width - idRecipeListStatusBar.rightPadding
             y: idRecipeListStatusBar.topPadding + (idRecipeListStatusBar.availableHeight - height) / 2
-            width: 12
-            height: 8
+            width: height
+            height: idRecipeListStatusBar.height/3
             contextType: "2d"
 
             Connections {
@@ -106,14 +106,15 @@ ToolBar {
             color: idRecipeListStatusBar.pressed ? "#CC7700" : "#ff9500"
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
+            leftPadding: idRecipeListStatusBar.height/2
+            rightPadding: idRecipeListStatusBar.height/2
             elide: Text.ElideRight
 
         }
 
         background: Rectangle {
             id : idBackgroundRecipeListStatusBar
-            //color: hovered? "#555555" : idBackgroundStatusBar.color
-            color: idRecipeListStatusBar.hovered ? "#595D69" : idBackgroundStatusBar.color
+            color: idRecipeListStatusBar.hovered ? "#403220" : "#1f2126"
             implicitWidth: 120
             implicitHeight: 40
             border.color: "#ff9500"
@@ -135,10 +136,47 @@ ToolBar {
             }
 
             background: Rectangle {
-                color: "#595D69"
+                color: "#1f2126"
                 border.color: "#ff9500"
                 radius: 5
             }
         }
+    }
+
+    ToolButton{
+        id: idSaveButtonStatusBar
+        height: idRecipeListStatusBar.height
+        width: height
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.left: idRecipeListStatusBar.right
+        anchors.leftMargin: 30
+        Image {
+            id: save
+            asynchronous: true
+            source: "/StatusBar/images/StatusBar/StatusBar_Save.png"
+            fillMode: Image.PreserveAspectFit
+            height: parent.height
+            width: parent.width
+            anchors.centerIn: parent
+
+        }
+        background: Rectangle{
+            anchors.fill: parent
+            color: idSaveButtonStatusBar.hovered ? "#403220" : "#1f2126"
+            radius: parent.height/2
+        }
+
+    }
+
+    Image {
+        id: idLogoStatusBar
+        asynchronous: true
+        source: "/StatusBar/images/StatusBar/StatusBar_Logo.png"
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.right: parent.right
+        anchors.rightMargin: 30
+        fillMode: Image.PreserveAspectFit
+        height: parent.height
+
     }
 }

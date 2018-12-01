@@ -5,4 +5,9 @@
         <file>images/StatusBar/StatusBar_OpenMenuBar.png</file>
         <file>images/StatusBar/StatusBar_Logo.png</file>
     </qresource>
+    <qresource prefix="/MenuBar">
+        <file>images/MenuBar/Stop.png</file>
+        <file>images/MenuBar/Run.png</file>
+        <file>images/MenuBar/Menu.png</file>
+    </qresource>
 </RCC>

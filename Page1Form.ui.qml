@@ -11,4 +11,13 @@ Page {
         text: qsTr("You are on Page 1.")
         anchors.centerIn: parent
     }
+
+    Image {
+        id: image
+        x: 167
+        y: 100
+        width: 157
+        height: 100
+        source: "images/StatusBar/StatusBar_Logo.png"
+    }
 }
