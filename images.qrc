@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/StatusBar">
+        <file>images/StatusBar/StatusBar_Save.png</file>
+        <file>images/StatusBar/StatusBar_PrevPage.png</file>
+        <file>images/StatusBar/StatusBar_OpenMenuBar.png</file>
+        <file>images/StatusBar/StatusBar_Logo.png</file>
+    </qresource>
+</RCC>
